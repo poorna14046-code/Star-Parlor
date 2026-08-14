@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Star Parlour — Beauty, Bridal &amp; Hair Studio</title>
+<meta name="description" content="Star Parlour — bridal makeup, hair styling and beauty treatments. See our services, gallery, achievements and visit us today." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          blush: '#FBF0F1',
+          plum: '#3B1230',
+          plumdeep: '#2A0C22',
+          rose: '#C9748A',
+          gold: '#C89B3C',
+          goldlight: '#E7C979',
+          ivory: '#FFFBF7',
+        },
+        fontFamily: {
+          display: ['"Cormorant Garamond"', 'serif'],
+          body: ['"Jost"', 'sans-serif'],
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  :root{
+    --plum: #3B1230;
+    --plumdeep: #2A0C22;
+    --gold: #C89B3C;
+    --goldlight: #E7C979;
+    --blush: #FBF0F1;
+    --rose: #C9748A;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--blush); color: var(--plumdeep); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation: none !important; transition: none !important; }
+  }
+
+  /* ---- Signature: vanity mirror bulb rail ---- */
+  .bulb-rail {
+    position: fixed;
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .bulb {
+    width: 11px; height: 11px;
+    border-radius: 999px;
+    background: #E9D9C8;
+    border: 1px solid rgba(59,18,48,0.15);
+    cursor: pointer;
+    transition: all .35s ease;
+    box-shadow: none;
+  }
+  .bulb.active {
+    background: var(--gold);
+    box-shadow: 0 0 0 4px rgba(200,155,60,0.18), 0 0 10px 2px rgba(200,155,60,0.55);
+    transform: scale(1.15);
+  }
+  @media (max-width: 900px){ .bulb-rail{ display:none; } }
+
+  /* Marquee bulb strip under nav — literal vanity mirror light strip */
+  .marquee-strip {
+    display: flex;
+    gap: 16px;
+    padding: 10px 0;
+    overflow: hidden;
+    background: linear-gradient(90deg, rgba(42,12,34,0.98), rgba(59,18,48,0.98), rgba(42,12,34,0.98));
+    box-shadow: inset 0 0 24px rgba(231,201,121,0.18);
+  }
+  .marquee-strip .dot {
+    width: 6px; height: 6px; border-radius: 999px;
+    background: var(--goldlight);
+    opacity: .95;
+    flex: none;
+    box-shadow: 0 0 10px rgba(231,201,121,0.45);
+    animation: twinkle 2.4s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: .25; transform: scale(0.85); }
+    50% { opacity: 1; transform: scale(1.15); }
+  }
+
+  .star-icon { color: var(--gold); }
+
+  .serif-eyebrow {
+    font-family: 'Jost', sans-serif;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    font-size: .72rem;
+    color: var(--rose);
+    font-weight: 500;
+  }
+
+  .divider-star {
+    display: flex; align-items: center; gap: 14px;
+  }
+  .divider-star::before, .divider-star::after {
+    content: '';
+    height: 1px;
+    flex: 1;
+    background: linear-gradient(to right, transparent, rgba(200,155,60,0.55), transparent);
+  }
+
+  .card-frame {
+    border: 1px solid rgba(59,18,48,0.10);
+    background: var(--ivory);
+    transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+  }
+  .card-frame:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px -18px rgba(59,18,48,0.35);
+    border-color: rgba(200,155,60,0.45);
+  }
+
+  /* Placeholder photo tiles — no external images, drawn with CSS */
+  .photo-tile {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(231,201,121,0.55), transparent 45%),
+      linear-gradient(135deg, #6B2049, #3B1230 55%, #2A0C22);
+  }
+  .photo-tile::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 20px 30px, rgba(255,255,255,0.5) 40%, transparent 41%),
+      radial-gradient(1px 1px at 70px 90px, rgba(255,255,255,0.35) 40%, transparent 41%),
+      radial-gradient(1.5px 1.5px at 130px 40px, rgba(255,255,255,0.45) 40%, transparent 41%),
+      radial-gradient(1px 1px at 160px 120px, rgba(255,255,255,0.3) 40%, transparent 41%),
+      radial-gradient(1.5px 1.5px at 40px 140px, rgba(255,255,255,0.4) 40%, transparent 41%);
+    background-repeat: repeat;
+    background-size: 180px 180px;
+  }
+  .photo-tile i { position: relative; z-index: 1; }
+  .tile-label {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 10px 14px;
+    background: linear-gradient(to top, rgba(20,5,15,0.75), transparent);
+    color: #F8E9CF;
+    font-family: 'Jost', sans-serif;
+    font-size: .74rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .btn-gold {
+    background: linear-gradient(135deg, var(--goldlight), var(--gold));
+    color: #2A0C22;
+    font-weight: 600;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 12px 24px -8px rgba(200,155,60,0.55); }
+
+  .btn-outline {
+    border: 1px solid rgba(251,240,241,0.55);
+    color: #FBF0F1;
+    transition: all .25s ease;
+  }
+  .btn-outline:hover { background: rgba(251,240,241,0.12); border-color: #FBF0F1; }
+
+  /* section reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  .nav-link { position: relative; }
+  .nav-link::after {
+    content: ''; position: absolute; left: 0; bottom: -4px;
+    width: 0; height: 1px; background: var(--gold);
+    transition: width .3s ease;
+  }
+  .nav-link:hover::after { width: 100%; }
+
+  ::selection { background: var(--gold); color: #2A0C22; }
+
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+</style>
+</head>
+<body class="font-body antialiased">
+
+<!-- Bulb rail (signature scroll indicator) -->
+<nav class="bulb-rail" aria-label="Section navigation">
+  <div class="bulb" data-target="#home" title="Home"></div>
+  <div class="bulb" data-target="#about" title="About"></div>
+  <div class="bulb" data-target="#services" title="Services"></div>
+  <div class="bulb" data-target="#gallery" title="Gallery"></div>
+  <div class="bulb" data-target="#achievements" title="Achievements"></div>
+  <div class="bulb" data-target="#contact" title="Contact"></div>
+</nav>
+
+<!-- Top bar -->
+<header class="fixed top-0 left-0 right-0 z-50">
+  <div class="bg-blush/90 backdrop-blur border-b border-plum/10">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 py-4 flex items-center justify-between">
+      <a href="#home" class="flex items-center gap-3 font-display text-3xl font-semibold text-plumdeep tracking-tight">
+        <img src="photos/logoStar.png" alt="Star Parlour Logo" class="h-12 w-auto">
+        <span class="italic text-rose">Star Parlour</span>
+      </a>
+      <div class="hidden md:flex items-center gap-9 font-body text-sm tracking-wide">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#gallery" class="nav-link">Gallery</a>
+        <a href="#achievements" class="nav-link">Achievements</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+      <a href="#contact" class="hidden md:inline-block btn-gold px-5 py-2.5 rounded-full text-sm">Visit Us</a>
+      <button id="menuBtn" class="md:hidden text-plumdeep text-xl" aria-label="Open menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </div>
+  <div class="marquee-strip" aria-hidden="true">
+    <div id="dotsHolder" class="flex flex-wrap justify-between gap-4 px-6 w-full"></div>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div id="mobileMenu" class="fixed inset-0 z-50 bg-plumdeep/97 text-ivory hidden flex-col items-center justify-center gap-8 font-display text-3xl">
+  <button id="closeMenu" class="absolute top-6 right-6 text-2xl" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#services" class="mobile-link">Services</a>
+  <a href="#gallery" class="mobile-link">Gallery</a>
+  <a href="#achievements" class="mobile-link">Achievements</a>
+  <a href="#contact" class="mobile-link">Contact</a>
+</div>
+
+<main>
+
+<!-- HERO -->
+<section id="home" class="relative pt-40 pb-28 md:pt-52 md:pb-36 overflow-hidden bg-blush">
+  <div class="pointer-events-none absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full" style="background: radial-gradient(circle, rgba(200,155,60,0.18), transparent 65%);"></div>
+  <div class="pointer-events-none absolute top-1/3 left-8 text-gold/40 text-4xl"><i class="fa-solid fa-star"></i></div>
+  <div class="pointer-events-none absolute bottom-10 right-1/4 text-rose/40 text-2xl"><i class="fa-solid fa-star"></i></div>
+
+  <div class="max-w-7xl mx-auto px-6 md:px-10 grid md:grid-cols-2 gap-16 items-center">
+    <div class="reveal">
+      <p class="serif-eyebrow mb-5">Bridal • Hair • Beauty Studio</p>
+      <h1 class="font-display text-5xl md:text-7xl leading-[1.05] font-semibold text-plumdeep">
+        Where every visit<br/> feels like <span class="italic text-rose">opening night.</span>
+      </h1>
+      <p class="mt-7 text-plumdeep/70 text-lg max-w-md leading-relaxed">
+        Star Parlour brings bridal artistry, precision hair styling and considered beauty treatments together under one roof — trusted by our neighbourhood for its craft, one client at a time.
+      </p>
+      <div class="mt-9 flex flex-wrap gap-4">
+        <a href="#contact" class="btn-gold px-7 py-3.5 rounded-full">Book a Visit</a>
+        <a href="#gallery" class="px-7 py-3.5 rounded-full border border-plumdeep/25 text-plumdeep hover:bg-plumdeep hover:text-ivory transition">View Our Work</a>
+      </div>
+      <div class="mt-12 flex items-center gap-10">
+        <div>
+          <p class="font-display text-3xl font-semibold text-plumdeep">14+ yrs</p>
+          <p class="text-xs tracking-wide uppercase text-plumdeep/50 mt-1">Experience</p>
+        </div>
+        <div class="w-px h-10 bg-plumdeep/15"></div>
+        <div>
+          <p class="font-display text-3xl font-semibold text-plumdeep">1,200+</p>
+          <p class="text-xs tracking-wide uppercase text-plumdeep/50 mt-1">Clients styled</p>
+        </div>
+        <div class="w-px h-10 bg-plumdeep/15"></div>
+        <div>
+          <p class="font-display text-3xl font-semibold text-plumdeep">6</p>
+          <p class="text-xs tracking-wide uppercase text-plumdeep/50 mt-1">Awards</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative reveal">
+      <div class="photo-tile rounded-[2rem] aspect-[4/5] flex items-center justify-center shadow-2xl shadow-plumdeep/20">
+        <img src="photos/review.webp" alt="Client review" class="w-full h-full object-cover absolute inset-0">
+      </div>
+      <div class="absolute -bottom-8 -left-8 bg-ivory card-frame rounded-2xl p-5 w-56 shadow-xl hidden sm:block">
+        <div class="flex items-center gap-1 text-gold text-sm mb-2">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        </div>
+        <p class="text-sm text-plumdeep/70 leading-snug">Got my makeup done by my incredibly talented maasi, and she made me feel absolutely beautiful! ✨ Her flawless work, attention to detail, and care truly made the experience special. Highly recommend her! 💄💕</p>
+        <p class="text-xs text-plumdeep/40 mt-2 tracking-wide uppercase">— Client review</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="py-28 bg-ivory">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+
+    <div class="grid md:grid-cols-2 gap-16 items-center reveal">
+      <div class="order-2 md:order-1 relative">
+        <div class="photo-tile rounded-3xl aspect-square flex items-center justify-center">
+          <img src="photos/owner.jpeg" alt="Jyoti Shetty,Owner of Star Parlour",class="w-full h-full object-cover">
+        </div>
+        <div class="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-gold/15 flex items-center justify-center">
+          <i class="fa-solid fa-star text-gold text-3xl"></i>
+        </div>
+      </div>
+      <div class="order-1 md:order-2">
+        <p class="serif-eyebrow mb-4">Meet the Owner</p>
+        <h2 class="font-display text-4xl md:text-5xl font-semibold text-plumdeep mb-6">A journey built one client at a time</h2>
+        <p class="text-plumdeep/70 leading-relaxed mb-4">
+          Jyoti Shetty founded Star Parlour with a simple belief — that great beauty work is equal parts skill and listening. Trained across bridal makeup, advanced hair styling and skin care, She has spent over a decade perfecting a craft that's as much about how a client feels as how they look.
+        </p>
+        <p class="text-plumdeep/70 leading-relaxed mb-8">
+          Every appointment at Star Parlour is shaped around that philosophy — unhurried consultations, techniques kept current with ongoing training, and an eye for detail that regulars have come to rely on.
+        </p>
+        <div class="grid grid-cols-2 gap-6">
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-graduation-cap text-gold mt-1"></i>
+            <div>
+              <p class="font-medium text-plumdeep text-sm">Certified Artist</p>
+              <p class="text-xs text-plumdeep/50 mt-1">[Certificate in Professional Beautician/ Agnel Technical College]</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-heart text-gold mt-1"></i>
+            <div>
+              <p class="font-medium text-plumdeep text-sm">Client-first</p>
+              <p class="text-xs text-plumdeep/50 mt-1">Consultation before every service</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider-star my-24 reveal">
+      <i class="fa-solid fa-star star-icon"></i>
+    </div>
+
+    <div class="reveal mb-1">
+      <p class="serif-eyebrow">About Star Parlour</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-10 items-start reveal">
+      <div>
+        <h3 class="font-display text-3xl font-semibold text-plumdeep mb-4">Our story</h3>
+        <p class="text-plumdeep/70 leading-relaxed text-sm">
+          Star Parlour opened its doors with one goal — to bring salon-quality bridal, hair and beauty care to our community, without the wait or the guesswork. The parlour was started in 2012.
+        </p>
+      </div>
+      <div>
+        <h3 class="font-display text-3xl font-semibold text-plumdeep mb-4">Our mission</h3>
+        <p class="text-plumdeep/70 leading-relaxed text-sm">
+          To make every client feel confident and cared for, using techniques and products we'd recommend to our own family.
+        </p>
+      </div>
+      <div>
+        <h3 class="font-display text-3xl font-semibold text-plumdeep mb-4">Our facilities</h3>
+        <p class="text-plumdeep/70 leading-relaxed text-sm">
+          A calm, hygienic studio space with dedicated stations for bridal makeup, hair styling and skin treatments.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="py-28 bg-blush relative overflow-hidden">
+  <div class="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 text-gold/10 text-[220px] leading-none font-display select-none">✦</div>
+  <div class="max-w-7xl mx-auto px-6 md:px-10 relative">
+    <div class="text-center max-w-xl mx-auto mb-16 reveal">
+      <p class="serif-eyebrow mb-4">What We Offer</p>
+      <h2 class="font-display text-4xl md:text-5xl font-semibold text-plumdeep">Services, done properly</h2>
+      <p class="text-plumdeep/60 mt-4">Every service starts with a short consultation, so what you get matches what you asked for.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-7">
+
+      <div class="card-frame rounded-2xl overflow-hidden reveal">
+        <div class="photo-tile h-44 flex items-center justify-center"><i class="fa-solid fa-ring text-3xl text-goldlight/70"></i></div>
+        <div class="p-6">
+          <h3 class="font-display text-2xl font-semibold text-plumdeep mb-2">Bridal Makeup</h3>
+          <p class="text-sm text-plumdeep/65 leading-relaxed">HD and airbrush bridal looks with trial sessions available, tailored to your outfit and skin type.</p>
+        </div>
+      </div>
+
+      <div class="card-frame rounded-2xl overflow-hidden reveal">
+        <div class="photo-tile h-44 flex items-center justify-center"><i class="fa-solid fa-scissors text-3xl text-goldlight/70"></i></div>
+        <div class="p-6">
+          <h3 class="font-display text-2xl font-semibold text-plumdeep mb-2">Hair Styling &amp; Cuts</h3>
+          <p class="text-sm text-plumdeep/65 leading-relaxed">Precision cuts, blow-outs, updos and event styling for everyday elegance or special occasions.</p>
+        </div>
+      </div>
+
+      <div class="card-frame rounded-2xl overflow-hidden reveal">
+        <div class="photo-tile h-44 flex items-center justify-center"><i class="fa-solid fa-spa text-3xl text-goldlight/70"></i></div>
+        <div class="p-6">
+          <h3 class="font-display text-2xl font-semibold text-plumdeep mb-2">Skin &amp; Facial Care</h3>
+          <p class="text-sm text-plumdeep/65 leading-relaxed">Cleanups, facials and brightening treatments suited to your skin type and season.</p>
+        </div>
+      </div>
+
+      <div class="card-frame rounded-2xl overflow-hidden reveal">
+        <div class="photo-tile h-44 flex items-center justify-center"><i class="fa-solid fa-hand-sparkles text-3xl text-goldlight/70"></i></div>
+        <div class="p-6">
+          <h3 class="font-display text-2xl font-semibold text-plumdeep mb-2">Manicure &amp; Pedicure</h3>
+          <p class="text-sm text-plumdeep/65 leading-relaxed">Classic and gel finishes, nail care and hand-foot spa treatments.</p>
+        </div>
+      </div>
+
+      <div class="card-frame rounded-2xl overflow-hidden reveal">
+        <div class="photo-tile h-44 flex items-center justify-center"><i class="fa-solid fa-wand-magic-sparkles text-3xl text-goldlight/70"></i></div>
+        <div class="p-6">
+          <h3 class="font-display text-2xl font-semibold text-plumdeep mb-2">Party &amp; Event Makeup</h3>
+          <p class="text-sm text-plumdeep/65 leading-relaxed">Look ready for engagements, receptions and celebrations, with looks that photograph well.</p>
+        </div>
+      </div>
+
+      <div class="card-frame rounded-2xl overflow-hidden reveal">
+        <div class="photo-tile h-44 flex items-center justify-center"><i class="fa-solid fa-leaf text-3xl text-goldlight/70"></i></div>
+        <div class="p-6">
+          <h3 class="font-display text-2xl font-semibold text-plumdeep mb-2">Hair Treatments</h3>
+          <p class="text-sm text-plumdeep/65 leading-relaxed">Smoothening, spa and nourishing treatments for damaged or dry hair.</p>
+        </div>
+      </div>
+
+    </div>
+    <p class="text-center text-xs text-plumdeep/40 mt-10 tracking-wide">Service list and pricing to be confirmed by contacting us.</p>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="py-28 bg-ivory">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 reveal">
+      <div>
+        <p class="serif-eyebrow mb-4">Our Work</p>
+        <h2 class="font-display text-4xl md:text-5xl font-semibold text-plumdeep">A look at the studio</h2>
+      </div>
+      <p class="text-plumdeep/60 max-w-sm text-sm">Bridal transformations, styling sessions and finished looks</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[160px] md:auto-rows-[190px]">
+      <div class="rounded-xl relative row-span-2 col-span-1 md:col-span-1 flex items-end overflow-hidden"><img src="photos/Bridal Makeup.png" alt="Bridal Look 01" class="w-full h-full object-cover absolute inset-0"><span class="tile-label relative z-10">Bridal Look 01</span><i class="fa-solid fa-star absolute top-4 right-4 text-goldlight/60 z-10"></i></div>
+      <div class="rounded-xl relative flex items-end overflow-hidden"><img src="photos/Hairstyle.png" alt="Hair Styling" class="w-full h-full object-cover absolute inset-0"><span class="tile-label relative z-10">Hair Styling</span></div>
+      <div class="rounded-xl relative flex items-end overflow-hidden pt-6"><img src="photos/BridalMakeup2.jpeg" alt="Bridal Look 02" class="w-full h-full object-cover absolute inset-0"><span class="tile-label relative z-10">Bridal Look 02</span></div>
+      <div class="rounded-xl relative row-span-2 flex items-end overflow-hidden"><img src="photos/Saree.jpeg" alt="Event Makeup" class="w-full h-full object-cover absolute inset-0"><span class="tile-label relative z-10">Saree Draping</span><i class="fa-solid fa-star absolute top-4 right-4 text-goldlight/60 z-10"></i></div>
+      <div class="rounded-xl relative flex items-end overflow-hidden"><img src="photos/Skin.png" alt="Skin Treatment" class="w-full h-full object-cover absolute inset-0"><span class="tile-label relative z-10">Skin Treatment</span></div>
+      <div class="rounded-xl relative flex items-end overflow-hidden"><img src="photos/Event Makeup.png" alt="Saree Draping" class="w-full h-full object-cover absolute inset-0"><span class="tile-label relative z-10">Event Makeup</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements" class="py-28 bg-plumdeep text-ivory relative overflow-hidden">
+  <div class="pointer-events-none absolute inset-0 opacity-[0.06]" style="background-image: radial-gradient(circle, #E7C979 1px, transparent 1px); background-size: 26px 26px;"></div>
+  <div class="max-w-7xl mx-auto px-6 md:px-10 relative">
+    <div class="text-center max-w-xl mx-auto mb-16 reveal">
+      <p class="serif-eyebrow mb-4" style="color:#E7C979">Recognition</p>
+      <h2 class="font-display text-4xl md:text-5xl font-semibold">Achievements &amp; Training</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="reveal border border-goldlight/25 rounded-2xl p-7 text-center hover:border-goldlight/60 transition">
+        <i class="fa-solid fa-trophy text-goldlight text-3xl mb-4"></i>
+        <p class="font-display text-lg font-semibold">Best Beautician Award</p>
+        <p class="text-ivory/50 text-xs mt-2 tracking-wide uppercase">[DSR], [2026]</p>
+      </div>
+      <div class="reveal border border-goldlight/25 rounded-2xl p-7 text-center hover:border-goldlight/60 transition">
+        <i class="fa-solid fa-award text-goldlight text-3xl mb-4"></i>
+        <p class="font-display text-lg font-semibold">Professional Beautician Certification</p>
+        <p class="text-ivory/50 text-xs mt-2 tracking-wide uppercase">[Agnel Technical College], [2012]</p>
+      </div>
+      <div class="reveal border border-goldlight/25 rounded-2xl p-7 text-center hover:border-goldlight/60 transition">
+        <i class="fa-solid fa-certificate text-goldlight text-3xl mb-4"></i>
+        <p class="font-display text-lg font-semibold">Makeup Professional Skill</p>
+        <p class="text-ivory/50 text-xs mt-2 tracking-wide uppercase">[Deepali Beauty Academy ], [2023]</p>
+      </div>
+      <div class="reveal border border-goldlight/25 rounded-2xl p-7 text-center hover:border-goldlight/60 transition">
+        <i class="fa-solid fa-star text-goldlight text-3xl mb-4"></i>
+        <p class="font-display text-lg font-semibold">Attended several professional seminars </p>
+        <p class="text-ivory/50 text-xs mt-2 tracking-wide uppercase">[Got Acknowledged on many beauty techniques]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="py-28 bg-blush">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="text-center max-w-xl mx-auto mb-16 reveal">
+      <p class="serif-eyebrow mb-4">Get In Touch</p>
+      <h2 class="font-display text-4xl md:text-5xl font-semibold text-plumdeep">Come see us</h2>
+      <p class="text-plumdeep/60 mt-4">Walk-ins welcome, or reach out ahead of time to plan your visit.</p>
+    </div>
+
+    <div class="grid md:grid-cols-5 gap-10">
+      <div class="md:col-span-2 space-y-6 reveal">
+        <div class="card-frame rounded-2xl p-6 flex items-start gap-4">
+          <i class="fa-solid fa-location-dot text-gold text-lg mt-1"></i>
+          <div>
+            <p class="font-medium text-plumdeep text-sm">Address</p>
+            <p class="text-plumdeep/60 text-sm mt-1">[103,First Floor,Rosary Apt,Behind Bethel Church,Kohojgaon,Ambernath(W)-421501]</p>
+          </div>
+        </div>
+        <div class="card-frame rounded-2xl p-6 flex items-start gap-4">
+          <i class="fa-solid fa-phone text-gold text-lg mt-1"></i>
+          <div>
+            <p class="font-medium text-plumdeep text-sm">Phone</p>
+            <p class="text-plumdeep/60 text-sm mt-1">[+91 9689849419]</p>
+          </div>
+        </div>
+        <div class="card-frame rounded-2xl p-6 flex items-start gap-4">
+          <i class="fa-solid fa-envelope text-gold text-lg mt-1"></i>
+          <div>
+            <p class="font-medium text-plumdeep text-sm">Email</p>
+            <p class="text-plumdeep/60 text-sm mt-1">[shettyjyoti1982@gmail.com]</p>
+          </div>
+        </div>
+        <div class="card-frame rounded-2xl p-6 flex items-start gap-4">
+          <i class="fa-regular fa-clock text-gold text-lg mt-1"></i>
+          <div>
+            <p class="font-medium text-plumdeep text-sm">Timings</p>
+            <p class="text-plumdeep/60 text-sm mt-1">Mon–Sat: 10:00 AM – 8:00 PM<br/>Sunday: 11:00 AM – 6:00 PM</p>
+          </div>
+        </div>
+
+        <div class="flex gap-3 pt-2">
+          <a href="https://wa.me/919689849419" target="_blank" rel="noopener" class="w-11 h-11 rounded-full bg-plumdeep text-ivory flex items-center justify-center hover:bg-gold hover:text-plumdeep transition" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="https://www.instagram.com/jyoti.j.shetty/?hl=en" class="w-11 h-11 rounded-full bg-plumdeep text-ivory flex items-center justify-center hover:bg-gold hover:text-plumdeep transition" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="w-11 h-11 rounded-full bg-plumdeep text-ivory flex items-center justify-center hover:bg-gold hover:text-plumdeep transition" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+      </div>
+
+      <div class="md:col-span-3 reveal">
+        <div class="rounded-2xl overflow-hidden border border-plumdeep/10 h-full min-h-[340px]">
+          <iframe
+            title="Star Parlour location map"
+            src="https://www.google.com/maps?q=19.217583,73.1956511&z=17&output=embed"
+            class="w-full h-full min-h-[340px] border-0"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <p class="text-xs text-plumdeep/40 mt-3">If the map does not display, <a href="https://www.google.com/maps?q=19.217583,73.1956511" target="_blank" rel="noopener" class="text-gold underline">open the location in Google Maps</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-plumdeep text-ivory/70 py-14">
+  <div class="max-w-7xl mx-auto px-6 md:px-10 flex flex-col md:flex-row items-center justify-between gap-6">
+    <a href="#home" class="flex items-center gap-2 font-display text-xl font-semibold text-ivory">
+      <i class="fa-solid fa-star star-icon"></i> Star Parlour
+    </a>
+    <p class="text-xs text-ivory/40 text-center">© <span id="year"></span> Star Parlour. All rights reserved. Website by [Developer].</p>
+    <div class="flex gap-4 text-sm">
+      <a href="#services" class="hover:text-goldlight transition">Services</a>
+      <a href="#gallery" class="hover:text-goldlight transition">Gallery</a>
+      <a href="#contact" class="hover:text-goldlight transition">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/919689849419" target="_blank" rel="noopener" id="whatsappFab" class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center text-2xl shadow-xl hover:scale-105 transition" aria-label="Chat on WhatsApp">
+  <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const closeMenu = document.getElementById('closeMenu');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => { mobileMenu.classList.remove('hidden'); mobileMenu.classList.add('flex'); });
+  closeMenu.addEventListener('click', () => { mobileMenu.classList.add('hidden'); mobileMenu.classList.remove('flex'); });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileMenu.classList.add('hidden'); mobileMenu.classList.remove('flex');
+  }));
+
+  // marquee bulb strip — build twinkling dots
+  const dotsHolder = document.getElementById('dotsHolder');
+  for (let i = 0; i < 40; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot';
+    d.style.animationDelay = (Math.random() * 2.4) + 's';
+    dotsHolder.appendChild(d);
+  }
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // bulb rail active state + click to scroll
+  const bulbs = document.querySelectorAll('.bulb');
+  const sections = Array.from(bulbs).map(b => document.querySelector(b.dataset.target));
+
+  bulbs.forEach(b => b.addEventListener('click', () => {
+    document.querySelector(b.dataset.target).scrollIntoView({ behavior: 'smooth' });
+  }));
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = sections.indexOf(entry.target);
+        bulbs.forEach(b => b.classList.remove('active'));
+        if (idx > -1) bulbs[idx].classList.add('active');
+      }
+    });
+  }, { threshold: 0.5 });
+  sections.forEach(s => s && sectionObserver.observe(s));
+</script>
+
+</body>
+</html>
