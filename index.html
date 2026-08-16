@@ -46,6 +46,9 @@
   html { scroll-behavior: smooth; }
   body { background: var(--blush); color: var(--plumdeep); }
 
+  /* Sections: account for fixed navbar height (~80px) */
+  section { scroll-margin-top: 100px; }
+
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     * { animation: none !important; transition: none !important; }
@@ -183,7 +186,81 @@
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
   .reveal.in { opacity: 1; transform: translateY(0); }
 
-  .nav-link { position: relative; }
+  #mobileMenu {
+    display: none;
+    background: linear-gradient(135deg, rgba(42,12,34,0.92), rgba(59,18,48,0.92), rgba(42,12,34,0.92));
+    backdrop-filter: blur(10px);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - 2rem);
+    max-width: 320px;
+    height: auto;
+    max-height: 80vh;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  #mobileMenu.visible {
+    display: flex;
+  }
+  
+  #closeMenu {
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+    color: #E7C979;
+  }
+  
+  #closeMenu:hover {
+    background: rgba(231,201,121,0.25);
+    transform: scale(1.1);
+  }
+  
+  #closeMenu:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+    background: rgba(231,201,121,0.25);
+  }
+  
+  #mobileMenu a {
+    text-decoration: none;
+    transition: all 0.2s ease;
+    padding: 1rem 2rem;
+    border-radius: 0.75rem;
+    color: #FFFBF7;
+    font-size: 1.875rem;
+    font-weight: 500;
+    display: block;
+    text-align: center;
+  }
+  #mobileMenu a:hover {
+    background: rgba(231,201,121,0.2);
+    color: #E7C979;
+    transform: scale(1.05);
+  }
+  #mobileMenu a:active {
+    background: rgba(231,201,121,0.3);
+  }
+  #mobileMenu a:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 4px;
+    background: rgba(231,201,121,0.15);
+  }
+
+  .nav-link { 
+    position: relative; 
+    display: inline-block;
+    padding: 0.25rem 0;
+  }
+  
+  .nav-link:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 4px;
+    border-radius: 0.25rem;
+  }
+  
   .nav-link::after {
     content: ''; position: absolute; left: 0; bottom: -4px;
     width: 0; height: 1px; background: var(--gold);
@@ -212,7 +289,30 @@
     }
 
     .marquee-strip {
-      padding: 3px 0;
+      padding: 2 2 2 2;
+      gap: 8px;
+      height: 10px;
+    }
+    
+    .marquee-strip .dot {
+      width: 4px;
+      height: 4px;
+    }
+
+    #menuBtn {
+      padding: 0.5rem;
+      border-radius: 0.375rem;
+      transition: all 0.2s ease;
+    }
+
+    #menuBtn:hover {
+      background: rgba(59, 18, 48, 0.1);
+    }
+
+    #menuBtn:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+      background: rgba(59, 18, 48, 0.1);
     }
 
     .serif-eyebrow {
@@ -281,10 +381,10 @@
 </nav>
 
 <!-- Top bar -->
-<header class="fixed top-0 left-0 right-0 z-40">
+<header class="fixed top-0 left-0 right-0 z-50">
   <div class="bg-blush/90 backdrop-blur border-b border-plum/10">
     <div class="max-w-7xl mx-auto px-6 md:px-10 py-4 flex items-center justify-between">
-      <a href="#home" class="flex items-center gap-3 font-display text-3xl font-semibold text-plumdeep tracking-tight">
+      <a href="#home" class="flex items-center gap-3 font-display text-3xl font-semibold text-plumdeep tracking-tight focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 rounded">
         <img src="photos/LogoStar.png" alt="Star Parlour Logo" class="h-12 w-auto">
         <span class="italic text-rose">Star Parlour</span>
       </a>
@@ -295,8 +395,8 @@
         <a href="#achievements" class="nav-link">Achievements</a>
         <a href="#contact" class="nav-link">Contact</a>
       </div>
-      <a href="#contact" class="hidden md:inline-block btn-gold px-5 py-2.5 rounded-full text-sm">Visit Us</a>
-      <button id="menuBtn" class="md:hidden text-plumdeep text-xl" aria-label="Open menu">
+      <a href="#contact" class="hidden md:inline-block btn-gold px-5 py-2.5 rounded-full text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2">Visit Us</a>
+      <button id="menuBtn" class="md:hidden text-plumdeep text-xl" aria-label="Open navigation menu" aria-expanded="false">
         <i class="fa-solid fa-bars"></i>
       </button>
     </div>
@@ -307,7 +407,7 @@
 </header>
 
 <!-- Mobile menu -->
-<div id="mobileMenu" class="fixed inset-0 z-[60] bg-plumdeep/97 text-ivory hidden flex-col items-center justify-center gap-8 font-display text-3xl">
+<div id="mobileMenu" class="fixed z-[60] bg-plumdeep/97 text-ivory flex-col items-center justify-center gap-8 font-display text-3xl rounded-3xl">
   <button id="closeMenu" class="absolute top-6 right-6 text-2xl" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
   <a href="#about" class="mobile-link">About</a>
   <a href="#services" class="mobile-link">Services</a>
@@ -319,7 +419,7 @@
 <main>
 
 <!-- HERO -->
-<section id="home" class="relative pt-40 pb-28 md:pt-52 md:pb-36 overflow-hidden bg-blush">
+<section id="home" class="relative pt-48 pb-28 md:pt-56 md:pb-36 overflow-hidden bg-blush">
   <div class="pointer-events-none absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full" style="background: radial-gradient(circle, rgba(200,155,60,0.18), transparent 65%);"></div>
   <div class="pointer-events-none absolute top-1/3 left-8 text-gold/40 text-4xl"><i class="fa-solid fa-star"></i></div>
   <div class="pointer-events-none absolute bottom-10 right-1/4 text-rose/40 text-2xl"><i class="fa-solid fa-star"></i></div>
@@ -676,11 +776,32 @@
   const menuBtn = document.getElementById('menuBtn');
   const closeMenu = document.getElementById('closeMenu');
   const mobileMenu = document.getElementById('mobileMenu');
-  menuBtn.addEventListener('click', () => { mobileMenu.classList.remove('hidden'); mobileMenu.classList.add('flex'); });
-  closeMenu.addEventListener('click', () => { mobileMenu.classList.add('hidden'); mobileMenu.classList.remove('flex'); });
+  
+  const toggleMenu = (open) => {
+    if (open) {
+      mobileMenu.classList.add('visible');
+      menuBtn.setAttribute('aria-expanded', 'true');
+      closeMenu.focus();
+    } else {
+      mobileMenu.classList.remove('visible');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menuBtn.focus();
+    }
+  };
+  
+  menuBtn.addEventListener('click', () => toggleMenu(true));
+  closeMenu.addEventListener('click', () => toggleMenu(false));
+  
   mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    mobileMenu.classList.add('hidden'); mobileMenu.classList.remove('flex');
+    toggleMenu(false);
   }));
+  
+  // Close menu on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('visible')) {
+      toggleMenu(false);
+    }
+  });
 
   // marquee bulb strip — build twinkling dots
   const dotsHolder = document.getElementById('dotsHolder');
